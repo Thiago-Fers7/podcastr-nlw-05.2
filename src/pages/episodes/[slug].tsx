@@ -1,8 +1,11 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
+import Image from 'next/image'
 import { api } from '../../services/api'
 import { format, parseISO } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString'
+
+import styles from './episode.module.scss'
 
 type Episode = {
     id: string,
@@ -23,11 +26,41 @@ type EpisodeProps = {
 export default function Episode({ episode }: EpisodeProps) {
 
     return (
-        <h1>{episode.title}</h1>
+        <div className={styles.episode}>
+            <div className={styles.thumbnailContainer}>
+                <button type="button">
+                    <img src="/arrow-left.svg" alt="Voltar" />
+                </button>
+
+                <Image
+                    width={700}
+                    height={160}
+                    src={episode.thumbnail}
+                    objectFit="cover"
+                />
+
+                <button type="button">
+                    <img src="/play.svg" alt="Tocar episódio" />
+                </button>
+
+                <header>
+                    <h1>{episode.title}</h1>
+
+                    <span>{episode.members}</span>
+                    <span>{episode.publishedAt}</span>
+                    <span>{episode.durationAsString}</span>
+                </header>
+
+                <div
+                    className={styles.description}
+                    dangerouslySetInnerHTML={{ __html: episode.description }}
+                />
+            </div>
+        </div>
     )
 }
 
-// Quando a página estática pode ser dinãmica (o caso dessa página) é necessário exportar o seguinte método
+// Quando a página estática pode ser dinâmica (o caso dessa página) é necessário exportar o seguinte método
 
 export const getStaticPaths: GetStaticPaths = async () => {
     return {
