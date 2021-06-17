@@ -14,7 +14,8 @@ export function Player() {
         currentEpisodeIndex,
         isPlaying,
         togglePlay,
-        setPlayingState
+        setPlayingState,
+        playNext
     } = useContext(PlayerContext)
 
     useEffect(() => {
@@ -105,7 +106,7 @@ export function Player() {
                         )}
                     </button>
 
-                    <button type="button" disabled={!episode}>
+                    <button type="button" disabled={!episode} onClick={playNext}>
                         <img src="/play-next.svg" alt="Trocar próxima" />
                     </button>
 
