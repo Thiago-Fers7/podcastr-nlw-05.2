@@ -6,12 +6,15 @@ type Episode = {
     thumbnail: string,
     duration: number,
     url: string,
+    durationAsString: string
 }
 
 type PlayerContextData = {
     episodeList: Episode[],
     currentEpisodeIndex: number,
+    isPlaying: boolean,
     play: (episode: Episode) => void,
+    togglePlay: () => void,
 }
 
 export const PlayerContext = createContext({} as PlayerContextData)
