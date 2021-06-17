@@ -71,7 +71,6 @@ export default function Episode({ episode }: EpisodeProps) {
 }
 
 // Quando a página estática pode ser dinâmica (o caso dessa página) é necessário exportar o seguinte método
-
 export const getStaticPaths: GetStaticPaths = async () => {
     const { data } = await api.get('episodes', {
         params: {
